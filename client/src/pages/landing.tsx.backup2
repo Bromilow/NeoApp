@@ -2,42 +2,20 @@ import { useState } from "react";
 import PublicNavbar from "@/components/layout/public-navbar";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import { AuthService } from "@/lib/authService";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function Landing() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const result = await AuthService.login();
-      if (!result.success) {
-        setError(result.message || 'Login failed');
-      }
-    } catch (err) {
-      setError('An unexpected error occurred');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleLogin = () => {
+    window.location.href = '/api/login';
   };
 
-  const handleSignup = async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const result = await AuthService.signup();
-      if (!result.success) {
-        setError(result.message || 'Signup failed');
-      }
-    } catch (err) {
-      setError('An unexpected error occurred');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSignup = () => {
+    window.location.href = '/api/login';
   };
 
   return (
@@ -96,29 +74,19 @@ export default function Landing() {
             <p className="text-cyber-muted text-center">
               Use your existing account to access the NeoModel platform
             </p>
-            {error && (
-              <div className="bg-red-500/20 border border-red-500/50 text-red-300 p-3 rounded text-sm">
-                {error}
-              </div>
-            )}
             <Button 
               onClick={handleLogin}
-              disabled={isLoading}
-              className="w-full py-3 bg-gradient-to-r from-neon-purple to-neon-magenta hover:from-neon-purple/80 hover:to-neon-magenta/80 text-white font-bold rounded transition-all duration-300 shadow-neon-purple uppercase tracking-wide disabled:opacity-50"
+              className="w-full py-3 bg-gradient-to-r from-neon-purple to-neon-magenta hover:from-neon-purple/80 hover:to-neon-magenta/80 text-white font-bold rounded transition-all duration-300 shadow-neon-purple uppercase tracking-wide"
               data-testid="button-login"
             >
-              {isLoading ? (
-                <i className="fas fa-spinner fa-spin mr-2"></i>
-              ) : (
-                <i className="fas fa-sign-in-alt mr-2"></i>
-              )}
-              {isLoading ? 'Initializing...' : 'Initialize Login'}
+              <i className="fas fa-sign-in-alt mr-2"></i>
+              Initialize Login
             </Button>
           </div>
           <div className="text-center mt-6">
             <span className="text-cyber-muted text-sm">New to the platform? </span>
             <button 
-              onClick={() => {setShowLogin(false); setShowSignup(true); setError(null);}} 
+              onClick={() => {setShowLogin(false); setShowSignup(true);}} 
               className="text-neon-cyan hover:text-neon-cyan/80 text-sm font-bold"
               data-testid="link-create-account"
             >
@@ -138,29 +106,19 @@ export default function Landing() {
             <p className="text-cyber-muted text-center">
               Create your account to join the NeoModel creator network
             </p>
-            {error && (
-              <div className="bg-red-500/20 border border-red-500/50 text-red-300 p-3 rounded text-sm">
-                {error}
-              </div>
-            )}
             <Button 
               onClick={handleSignup}
-              disabled={isLoading}
-              className="w-full py-3 bg-gradient-to-r from-neon-cyan to-neon-purple hover:from-neon-cyan/80 hover:to-neon-purple/80 text-white font-bold rounded transition-all duration-300 shadow-neon-cyan uppercase tracking-wide disabled:opacity-50"
+              className="w-full py-3 bg-gradient-to-r from-neon-cyan to-neon-purple hover:from-neon-cyan/80 hover:to-neon-purple/80 text-white font-bold rounded transition-all duration-300 shadow-neon-cyan uppercase tracking-wide"
               data-testid="button-signup"
             >
-              {isLoading ? (
-                <i className="fas fa-spinner fa-spin mr-2"></i>
-              ) : (
-                <i className="fas fa-rocket mr-2"></i>
-              )}
-              {isLoading ? 'Connecting...' : 'Connect to Matrix'}
+              <i className="fas fa-rocket mr-2"></i>
+              Connect to Matrix
             </Button>
           </div>
           <div className="text-center mt-6">
             <span className="text-cyber-muted text-sm">Already connected? </span>
             <button 
-              onClick={() => {setShowSignup(false); setShowLogin(true); setError(null);}} 
+              onClick={() => {setShowSignup(false); setShowLogin(true);}} 
               className="text-neon-cyan hover:text-neon-cyan/80 text-sm font-bold"
               data-testid="link-access-portal"
             >
