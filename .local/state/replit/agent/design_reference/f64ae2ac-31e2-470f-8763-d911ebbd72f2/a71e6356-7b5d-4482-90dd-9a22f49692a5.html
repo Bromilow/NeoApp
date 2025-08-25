@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoModel Agency - Cyberpunk Creator Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cyber-dark': '#0b0620',
+                        'cyber-surface': '#1a1030',
+                        'neon-purple': '#8A2BE2',
+                        'neon-cyan': '#00FFF0',
+                        'neon-magenta': '#FF2D95',
+                        'cyber-text': '#E9E7FF',
+                        'cyber-muted': '#B9B0D9'
+                    },
+                    fontFamily: {
+                        'orbitron': ['Orbitron', 'monospace'],
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    boxShadow: {
+                        'neon-purple': '0 0 20px rgba(138, 43, 226, 0.5)',
+                        'neon-cyan': '0 0 20px rgba(0, 255, 240, 0.5)',
+                        'neon-magenta': '0 0 20px rgba(255, 45, 149, 0.5)',
+                        'glow': '0 0 30px rgba(155, 89, 255, 0.25)'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate'
+                    }
+                }
+            }
+        };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(138, 43, 226, 0.5); }
+            to { box-shadow: 0 0 30px rgba(138, 43, 226, 0.8); }
+        }
+        
+        .neon-border {
+            position: relative;
+            background: linear-gradient(145deg, rgba(138, 43, 226, 0.1), rgba(0, 255, 240, 0.05));
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+        
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #8A2BE2, #00FFF0, #FF2D95, #8A2BE2);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .neon-border:hover::before {
+            opacity: 0.7;
+        }
+        
+        .sidebar-collapsed {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+<body class="bg-cyber-dark text-cyber-text font-inter overflow-x-hidden">
+    
+    <!-- @COMPONENT: AppContainer -->
+    <div id="app-container" class="min-h-screen">
+        
+        <!-- Landing Page View -->
+        <div id="landing-view" class="min-h-screen">
+            <!-- Public Top Navigation -->
+            <!-- @COMPONENT: PublicNavbar -->
+            <nav class="fixed top-0 w-full bg-cyber-surface/90 backdrop-blur-md border-b border-neon-purple/20 z-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-atom text-neon-cyan text-2xl"></i>
+                            <h1 class="text-xl font-orbitron font-bold text-neon-purple">NeoModel</h1>
+                        </div>
+                        <div class="hidden md:flex items-center space-x-8">
+                            <a href="#about" class="text-cyber-muted hover:text-neon-cyan transition-colors duration-300 uppercase tracking-wide text-sm">About</a>
+                            <a href="#blog" class="text-cyber-muted hover:text-neon-cyan transition-colors duration-300 uppercase tracking-wide text-sm">Blog</a>
+                            <a href="#contact" class="text-cyber-muted hover:text-neon-cyan transition-colors duration-300 uppercase tracking-wide text-sm">Contact</a>
+                            <button onclick="showLogin()" class="px-4 py-2 bg-transparent border border-neon-purple text-neon-purple hover:bg-neon-purple/10 transition-all duration-300 rounded uppercase tracking-wide text-sm">
+                                Login
+                            </button>
+                            <button onclick="showSignup()" class="px-4 py-2 bg-neon-purple hover:bg-neon-purple/80 text-white transition-all duration-300 rounded uppercase tracking-wide text-sm shadow-neon-purple">
+                                Sign Up
+                            </button>
+                        </div>
+                        <button class="md:hidden text-cyber-text text-xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <!-- @END_COMPONENT: PublicNavbar -->
+            
+            <!-- Hero Section -->
+            <!-- @COMPONENT: HeroSection -->
+            <section class="pt-16 min-h-screen flex items-center justify-center relative overflow-hidden">
+                <!-- Animated background grid -->
+                <div class="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-surface/20 to-cyber-dark"></div>
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(138,43,226,0.1),transparent_70%)]"></div>
+                
+                <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+                    <h1 class="text-5xl md:text-7xl font-orbitron font-bold mb-6 bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-magenta bg-clip-text text-transparent animate-glow">
+                        NEXT-GEN
+                        <br>
+                        CREATOR PLATFORM
+                    </h1>
+                    <p class="text-xl md:text-2xl text-cyber-muted mb-8 max-w-2xl mx-auto leading-relaxed">
+                        Connect elite creators with forward-thinking brands in the cyberpunk future of digital modeling
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button onclick="showSignup('creator')" class="px-8 py-4 bg-gradient-to-r from-neon-purple to-neon-magenta hover:from-neon-purple/80 hover:to-neon-magenta/80 text-white font-bold rounded-lg transition-all duration-300 shadow-neon-purple transform hover:scale-105 uppercase tracking-wide">
+                            <i class="fas fa-user-circle mr-2"></i>
+                            Join as Creator
+                        </button>
+                        <button onclick="showLogin('admin')" class="px-8 py-4 bg-transparent border-2 border-neon-cyan text-neon-cyan hover:bg-neon-cyan/10 font-bold rounded-lg transition-all duration-300 shadow-neon-cyan transform hover:scale-105 uppercase tracking-wide">
+                            <i class="fas fa-briefcase mr-2"></i>
+                            Admin Portal
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Floating elements for visual interest -->
+                <div class="absolute top-1/4 left-1/4 w-2 h-2 bg-neon-cyan rounded-full animate-pulse"></div>
+                <div class="absolute top-3/4 right-1/4 w-3 h-3 bg-neon-magenta rounded-full animate-pulse-slow"></div>
+                <div class="absolute bottom-1/4 left-1/3 w-1 h-1 bg-neon-purple rounded-full animate-pulse"></div>
+            </section>
+            <!-- @END_COMPONENT: HeroSection -->
+        </div>
+        
+        <!-- Login Modal -->
+        <!-- @COMPONENT: LoginModal -->
+        <div id="login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-cyber-surface p-8 rounded-lg border border-neon-purple/30 max-w-md w-full neon-border">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-orbitron font-bold text-neon-purple">ACCESS PORTAL</h2>
+                    <button onclick="hideLogin()" class="text-cyber-muted hover:text-neon-cyan transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form class="space-y-6" data-event="submit:handleLogin" data-implementation="Should validate credentials and redirect based on role">
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Email</label>
+                        <input type="email" class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none focus:shadow-neon-cyan/50 transition-all duration-300" data-bind="auth.email" placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Password</label>
+                        <input type="password" class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none focus:shadow-neon-cyan/50 transition-all duration-300" data-bind="auth.password" placeholder="Enter your password">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox h-4 w-4 text-neon-purple bg-cyber-dark border-neon-purple/30">
+                            <span class="ml-2 text-cyber-muted text-sm">Remember me</span>
+                        </label>
+                        <a href="#" class="text-neon-cyan hover:text-neon-cyan/80 text-sm">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-neon-purple to-neon-magenta hover:from-neon-purple/80 hover:to-neon-magenta/80 text-white font-bold rounded transition-all duration-300 shadow-neon-purple uppercase tracking-wide">
+                        <i class="fas fa-sign-in-alt mr-2"></i>
+                        Initialize Login
+                    </button>
+                </form>
+                <div class="text-center mt-6">
+                    <span class="text-cyber-muted text-sm">New to the platform? </span>
+                    <button onclick="showSignup()" class="text-neon-cyan hover:text-neon-cyan/80 text-sm font-bold">Create Account</button>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: LoginModal -->
+        
+        <!-- Signup Modal -->
+        <!-- @COMPONENT: SignupModal -->
+        <div id="signup-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-cyber-surface p-8 rounded-lg border border-neon-purple/30 max-w-md w-full neon-border">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-orbitron font-bold text-neon-purple">JOIN MATRIX</h2>
+                    <button onclick="hideSignup()" class="text-cyber-muted hover:text-neon-cyan transition-colors">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                <form class="space-y-6" data-event="submit:handleSignup" data-implementation="Should create user account and redirect to onboarding">
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Role</label>
+                        <select class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none transition-all duration-300" data-bind="user.role">
+                            <option value="creator">Creator / Model</option>
+                            <option value="admin">Agency Admin</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Email</label>
+                        <input type="email" class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none focus:shadow-neon-cyan/50 transition-all duration-300" data-bind="user.email" placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Password</label>
+                        <input type="password" class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none focus:shadow-neon-cyan/50 transition-all duration-300" data-bind="user.password" placeholder="Create a secure password">
+                    </div>
+                    <div>
+                        <label class="block text-cyber-muted text-sm font-bold mb-2 uppercase tracking-wide">Full Name</label>
+                        <input type="text" class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none focus:shadow-neon-cyan/50 transition-all duration-300" data-bind="user.name" placeholder="Enter your full name">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-neon-cyan to-neon-purple hover:from-neon-cyan/80 hover:to-neon-purple/80 text-white font-bold rounded transition-all duration-300 shadow-neon-cyan uppercase tracking-wide">
+                        <i class="fas fa-rocket mr-2"></i>
+                        Connect to Matrix
+                    </button>
+                </form>
+                <div class="text-center mt-6">
+                    <span class="text-cyber-muted text-sm">Already connected? </span>
+                    <button onclick="showLogin()" class="text-neon-cyan hover:text-neon-cyan/80 text-sm font-bold">Access Portal</button>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: SignupModal -->
+        
+        <!-- Creator Dashboard View -->
+        <!-- @COMPONENT: CreatorDashboard -->
+        <div id="creator-dashboard" class="hidden min-h-screen flex">
+            <!-- Left Sidebar Navigation -->
+            <!-- @COMPONENT: CreatorSidebar -->
+            <aside id="creator-sidebar" class="fixed left-0 top-0 h-full w-64 bg-cyber-surface/95 backdrop-blur-md border-r border-neon-purple/20 transform transition-transform duration-300 z-40">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-8">
+                        <i class="fas fa-atom text-neon-cyan text-2xl"></i>
+                        <h1 class="text-xl font-orbitron font-bold text-neon-purple">NeoModel</h1>
+                    </div>
+                    
+                    <!-- User Profile Card -->
+                    <div class="bg-cyber-dark/50 p-4 rounded-lg border border-neon-purple/20 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gradient-to-r from-neon-purple to-neon-magenta rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-cyber-text" data-bind="user.name">Alex Nova</h3>
+                                <p class="text-xs text-cyber-muted uppercase tracking-wide">Creator</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation Menu -->
+                    <nav class="space-y-2">
+                        <a href="#dashboard" class="flex items-center space-x-3 p-3 rounded-lg bg-neon-purple/20 text-neon-purple border border-neon-purple/30">
+                            <i class="fas fa-chart-line text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Dashboard</span>
+                        </a>
+                        <a href="#profile" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-user-edit text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Profile</span>
+                        </a>
+                        <a href="#gallery" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-images text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Gallery</span>
+                        </a>
+                        <a href="#messages" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-envelope text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Messages</span>
+                            <span class="ml-auto bg-neon-magenta text-white text-xs px-2 py-1 rounded-full" data-bind="unreadMessages">3</span>
+                        </a>
+                        <a href="#settings" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-cogs text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Settings</span>
+                        </a>
+                    </nav>
+                    
+                    <!-- Logout -->
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <button onclick="logout()" class="w-full flex items-center justify-center space-x-2 p-3 bg-transparent border border-neon-magenta/30 text-neon-magenta hover:bg-neon-magenta/10 transition-all duration-300 rounded-lg">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Disconnect</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: CreatorSidebar -->
+            
+            <!-- Main Content Area -->
+            <main class="flex-1 ml-64 min-h-screen">
+                <!-- Top Bar -->
+                <!-- @COMPONENT: DashboardHeader -->
+                <header class="bg-cyber-surface/90 backdrop-blur-md border-b border-neon-purple/20 px-8 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-orbitron font-bold text-neon-purple">CREATOR DASHBOARD</h2>
+                            <p class="text-cyber-muted text-sm mt-1">Monitor your digital presence and engagement</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                <i class="fas fa-bell text-lg"></i>
+                            </button>
+                            <button class="md:hidden p-2 text-cyber-muted hover:text-neon-cyan transition-colors" onclick="toggleSidebar()">
+                                <i class="fas fa-bars text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                <!-- @END_COMPONENT: DashboardHeader -->
+                
+                <!-- Dashboard Content -->
+                <div class="p-8">
+                    <!-- Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <!-- @MAP: statsCards.map(stat => ( -->
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Profile Views</p>
+                                    <p class="text-2xl font-bold text-neon-cyan" data-bind="stats.profileViews">1,247</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-cyan/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-eye text-neon-cyan text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-400 text-sm">+12.5%</span>
+                                <span class="text-cyber-muted text-sm ml-2">from last week</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Gallery Items</p>
+                                    <p class="text-2xl font-bold text-neon-magenta" data-bind="stats.galleryCount">24</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-magenta/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-images text-neon-magenta text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-400 text-sm">+3</span>
+                                <span class="text-cyber-muted text-sm ml-2">this month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Messages</p>
+                                    <p class="text-2xl font-bold text-neon-purple" data-bind="stats.messageCount">8</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-purple/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-envelope text-neon-purple text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-neon-magenta text-sm">3 unread</span>
+                                <span class="text-cyber-muted text-sm ml-2">messages</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Rating</p>
+                                    <p class="text-2xl font-bold text-yellow-400" data-bind="stats.rating">4.8</p>
+                                </div>
+                                <div class="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-star text-yellow-400 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-cyber-muted text-sm">Based on 23 reviews</span>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                    
+                    <!-- Recent Activity & Quick Actions -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                        <!-- Recent Activity -->
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20">
+                            <h3 class="text-xl font-orbitron font-bold text-neon-purple mb-6">Recent Activity</h3>
+                            <div class="space-y-4">
+                                <!-- @MAP: activities.map(activity => ( -->
+                                <div class="flex items-center space-x-4 p-4 bg-cyber-dark/30 rounded border border-neon-purple/10">
+                                    <div class="w-10 h-10 bg-neon-cyan/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-eye text-neon-cyan"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-cyber-text text-sm">Profile viewed by <span class="text-neon-cyan font-semibold">Agency Alpha</span></p>
+                                        <p class="text-cyber-muted text-xs">2 hours ago</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4 p-4 bg-cyber-dark/30 rounded border border-neon-purple/10">
+                                    <div class="w-10 h-10 bg-neon-magenta/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-upload text-neon-magenta"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-cyber-text text-sm">Uploaded new photo to gallery</p>
+                                        <p class="text-cyber-muted text-xs">1 day ago</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center space-x-4 p-4 bg-cyber-dark/30 rounded border border-neon-purple/10">
+                                    <div class="w-10 h-10 bg-neon-purple/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-message text-neon-purple"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-cyber-text text-sm">New message from <span class="text-neon-purple font-semibold">Studio Beta</span></p>
+                                        <p class="text-cyber-muted text-xs">3 days ago</p>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP )) -->
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Actions -->
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20">
+                            <h3 class="text-xl font-orbitron font-bold text-neon-purple mb-6">Quick Actions</h3>
+                            <div class="space-y-4">
+                                <button onclick="showGalleryUpload()" class="w-full flex items-center justify-between p-4 bg-cyber-dark/30 hover:bg-neon-purple/10 border border-neon-purple/20 hover:border-neon-purple/50 rounded transition-all duration-300">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-neon-purple/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-upload text-neon-purple"></i>
+                                        </div>
+                                        <span class="text-cyber-text font-medium">Upload Media</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-cyber-muted"></i>
+                                </button>
+                                
+                                <button onclick="editProfile()" class="w-full flex items-center justify-between p-4 bg-cyber-dark/30 hover:bg-neon-cyan/10 border border-neon-purple/20 hover:border-neon-cyan/50 rounded transition-all duration-300">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-neon-cyan/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-edit text-neon-cyan"></i>
+                                        </div>
+                                        <span class="text-cyber-text font-medium">Edit Profile</span>
+                                    </div>
+                                    <i class="fas fa-chevron-right text-cyber-muted"></i>
+                                </button>
+                                
+                                <button onclick="viewMessages()" class="w-full flex items-center justify-between p-4 bg-cyber-dark/30 hover:bg-neon-magenta/10 border border-neon-purple/20 hover:border-neon-magenta/50 rounded transition-all duration-300">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-10 h-10 bg-neon-magenta/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-envelope text-neon-magenta"></i>
+                                        </div>
+                                        <span class="text-cyber-text font-medium">Check Messages</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="bg-neon-magenta text-white text-xs px-2 py-1 rounded-full">3</span>
+                                        <i class="fas fa-chevron-right text-cyber-muted"></i>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- @END_COMPONENT: CreatorDashboard -->
+        
+        <!-- Admin Dashboard View -->
+        <!-- @COMPONENT: AdminDashboard -->
+        <div id="admin-dashboard" class="hidden min-h-screen flex">
+            <!-- Admin Sidebar -->
+            <!-- @COMPONENT: AdminSidebar -->
+            <aside class="fixed left-0 top-0 h-full w-64 bg-cyber-surface/95 backdrop-blur-md border-r border-neon-purple/20 z-40">
+                <div class="p-6">
+                    <div class="flex items-center space-x-2 mb-8">
+                        <i class="fas fa-atom text-neon-cyan text-2xl"></i>
+                        <h1 class="text-xl font-orbitron font-bold text-neon-purple">NeoModel</h1>
+                    </div>
+                    
+                    <!-- Admin Profile Card -->
+                    <div class="bg-cyber-dark/50 p-4 rounded-lg border border-neon-purple/20 mb-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-full flex items-center justify-center">
+                                <i class="fas fa-user-shield text-white text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-cyber-text" data-bind="admin.name">Sarah Matrix</h3>
+                                <p class="text-xs text-cyber-muted uppercase tracking-wide">Admin</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Admin Navigation -->
+                    <nav class="space-y-2">
+                        <a href="#admin-dashboard" class="flex items-center space-x-3 p-3 rounded-lg bg-neon-purple/20 text-neon-purple border border-neon-purple/30">
+                            <i class="fas fa-tachometer-alt text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Dashboard</span>
+                        </a>
+                        <a href="#creators" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-users text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Creators</span>
+                        </a>
+                        <a href="#messages" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-envelope text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Messages</span>
+                            <span class="ml-auto bg-neon-magenta text-white text-xs px-2 py-1 rounded-full" data-bind="adminUnreadMessages">7</span>
+                        </a>
+                        <a href="#moderation" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-shield-alt text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Moderation</span>
+                        </a>
+                        <a href="#settings" class="flex items-center space-x-3 p-3 rounded-lg text-cyber-muted hover:text-neon-cyan hover:bg-neon-cyan/10 transition-all duration-300">
+                            <i class="fas fa-cogs text-lg"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Site Settings</span>
+                        </a>
+                    </nav>
+                    
+                    <!-- Logout -->
+                    <div class="absolute bottom-6 left-6 right-6">
+                        <button onclick="logout()" class="w-full flex items-center justify-center space-x-2 p-3 bg-transparent border border-neon-magenta/30 text-neon-magenta hover:bg-neon-magenta/10 transition-all duration-300 rounded-lg">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span class="font-medium uppercase tracking-wide text-sm">Disconnect</span>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+            <!-- @END_COMPONENT: AdminSidebar -->
+            
+            <!-- Admin Main Content -->
+            <main class="flex-1 ml-64 min-h-screen">
+                <!-- Admin Header -->
+                <header class="bg-cyber-surface/90 backdrop-blur-md border-b border-neon-purple/20 px-8 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-orbitron font-bold text-neon-purple">ADMIN CONTROL CENTER</h2>
+                            <p class="text-cyber-muted text-sm mt-1">Manage creators and platform operations</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                <i class="fas fa-bell text-lg"></i>
+                            </button>
+                            <button class="md:hidden p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                <i class="fas fa-bars text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+                </header>
+                
+                <!-- Admin Dashboard Content -->
+                <div class="p-8">
+                    <!-- Admin Stats Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Total Creators</p>
+                                    <p class="text-2xl font-bold text-neon-cyan" data-bind="adminStats.totalCreators">156</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-cyan/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-users text-neon-cyan text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-400 text-sm">+12</span>
+                                <span class="text-cyber-muted text-sm ml-2">this month</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Active Today</p>
+                                    <p class="text-2xl font-bold text-neon-magenta" data-bind="adminStats.activeToday">47</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-magenta/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-neon-magenta text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-green-400 text-sm">+18%</span>
+                                <span class="text-cyber-muted text-sm ml-2">vs yesterday</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">New Messages</p>
+                                    <p class="text-2xl font-bold text-neon-purple" data-bind="adminStats.newMessages">23</p>
+                                </div>
+                                <div class="w-12 h-12 bg-neon-purple/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-envelope text-neon-purple text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-neon-magenta text-sm">7 urgent</span>
+                                <span class="text-cyber-muted text-sm ml-2">responses needed</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface p-6 rounded-lg border border-neon-purple/20 neon-border">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-cyber-muted text-sm uppercase tracking-wide">Pending Review</p>
+                                    <p class="text-2xl font-bold text-yellow-400" data-bind="adminStats.pendingReview">8</p>
+                                </div>
+                                <div class="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center">
+                                    <i class="fas fa-clock text-yellow-400 text-xl"></i>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span class="text-cyber-muted text-sm">Awaiting approval</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Creator Management Table -->
+                    <div class="bg-cyber-surface rounded-lg border border-neon-purple/20 overflow-hidden">
+                        <div class="p-6 border-b border-neon-purple/20">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <h3 class="text-xl font-orbitron font-bold text-neon-purple">Creator Management</h3>
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    <!-- Search and Filter Controls -->
+                                    <div class="relative">
+                                        <input type="text" placeholder="Search creators..." class="pl-10 pr-4 py-2 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none transition-all duration-300" data-bind="search.query">
+                                        <i class="fas fa-search absolute left-3 top-3 text-cyber-muted"></i>
+                                    </div>
+                                    <select class="px-4 py-2 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none transition-all duration-300" data-bind="filter.hairColor">
+                                        <option value="">All Hair Colors</option>
+                                        <option value="blonde">Blonde</option>
+                                        <option value="brunette">Brunette</option>
+                                        <option value="black">Black</option>
+                                        <option value="red">Red</option>
+                                    </select>
+                                    <button class="px-4 py-2 bg-neon-purple hover:bg-neon-purple/80 text-white rounded transition-colors duration-300">
+                                        <i class="fas fa-filter mr-2"></i>
+                                        Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Table -->
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-cyber-dark/50">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-cyber-muted uppercase tracking-wider">Creator</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-cyber-muted uppercase tracking-wider">Location</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-cyber-muted uppercase tracking-wider">Profile Views</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-cyber-muted uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-cyber-muted uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-neon-purple/10">
+                                    <!-- @MAP: creators.map(creator => ( -->
+                                    <tr class="hover:bg-cyber-dark/20 transition-colors duration-200" data-mock="true">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <!-- Professional headshot of a confident model with styled hair -->
+                                                <img src="https://pixabay.com/get/gaed6057ff11a4f849834deeb64ec99cbbbf653c2448222e0aee88b6b4f8ac9c5202ad71c20ab45c018739614c49dad902cac63057bbe860442f90674c82f4733_1280.jpg" alt="Creator profile" class="w-12 h-12 rounded-full border-2 border-neon-purple/30">
+                                                <div>
+                                                    <div class="text-cyber-text font-medium" data-bind="creator.name">Elena Void</div>
+                                                    <div class="text-cyber-muted text-sm" data-bind="creator.email">elena@neomodel.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.location">Los Angeles, CA</td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.views">2,847</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-400/20 text-green-400">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="p-2 text-neon-cyan hover:bg-neon-cyan/10 rounded transition-colors" title="View Profile">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-purple hover:bg-neon-purple/10 rounded transition-colors" title="Send Message">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-magenta hover:bg-neon-magenta/10 rounded transition-colors" title="More Actions">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="hover:bg-cyber-dark/20 transition-colors duration-200" data-mock="true">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <!-- Stylish portrait of a male model with defined features -->
+                                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100" alt="Creator profile" class="w-12 h-12 rounded-full border-2 border-neon-purple/30">
+                                                <div>
+                                                    <div class="text-cyber-text font-medium" data-bind="creator.name">Marcus Neo</div>
+                                                    <div class="text-cyber-muted text-sm" data-bind="creator.email">marcus@neomodel.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.location">New York, NY</td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.views">1,923</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-yellow-400/20 text-yellow-400">Pending</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="p-2 text-neon-cyan hover:bg-neon-cyan/10 rounded transition-colors" title="View Profile">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-purple hover:bg-neon-purple/10 rounded transition-colors" title="Send Message">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-magenta hover:bg-neon-magenta/10 rounded transition-colors" title="More Actions">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr class="hover:bg-cyber-dark/20 transition-colors duration-200" data-mock="true">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-4">
+                                                <!-- Fashion portrait of an elegant female model -->
+                                                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&h=100" alt="Creator profile" class="w-12 h-12 rounded-full border-2 border-neon-purple/30">
+                                                <div>
+                                                    <div class="text-cyber-text font-medium" data-bind="creator.name">Zara Flux</div>
+                                                    <div class="text-cyber-muted text-sm" data-bind="creator.email">zara@neomodel.com</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.location">Miami, FL</td>
+                                        <td class="px-6 py-4 text-cyber-text" data-bind="creator.views">3,456</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-400/20 text-green-400">Active</span>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center space-x-2">
+                                                <button class="p-2 text-neon-cyan hover:bg-neon-cyan/10 rounded transition-colors" title="View Profile">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-purple hover:bg-neon-purple/10 rounded transition-colors" title="Send Message">
+                                                    <i class="fas fa-envelope"></i>
+                                                </button>
+                                                <button class="p-2 text-neon-magenta hover:bg-neon-magenta/10 rounded transition-colors" title="More Actions">
+                                                    <i class="fas fa-ellipsis-v"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- @END_MAP )) -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <div class="px-6 py-4 bg-cyber-dark/30 border-t border-neon-purple/20">
+                            <div class="flex items-center justify-between">
+                                <div class="text-cyber-muted text-sm">
+                                    Showing <span class="text-cyber-text">1-10</span> of <span class="text-cyber-text">156</span> creators
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button class="px-3 py-1 bg-cyber-surface border border-neon-purple/30 text-cyber-muted rounded hover:border-neon-purple/50 transition-colors">
+                                        Previous
+                                    </button>
+                                    <button class="px-3 py-1 bg-neon-purple text-white rounded">1</button>
+                                    <button class="px-3 py-1 bg-cyber-surface border border-neon-purple/30 text-cyber-muted rounded hover:border-neon-purple/50 transition-colors">2</button>
+                                    <button class="px-3 py-1 bg-cyber-surface border border-neon-purple/30 text-cyber-muted rounded hover:border-neon-purple/50 transition-colors">3</button>
+                                    <button class="px-3 py-1 bg-cyber-surface border border-neon-purple/30 text-cyber-muted rounded hover:border-neon-purple/50 transition-colors">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- @END_COMPONENT: AdminDashboard -->
+        
+        <!-- Creator Profile/Gallery Management View -->
+        <!-- @COMPONENT: CreatorGallery -->
+        <div id="creator-gallery-view" class="hidden min-h-screen flex">
+            <!-- Reuse Creator Sidebar -->
+            <aside class="fixed left-0 top-0 h-full w-64 bg-cyber-surface/95 backdrop-blur-md border-r border-neon-purple/20 z-40">
+                <!-- Same sidebar content as Creator Dashboard -->
+            </aside>
+            
+            <main class="flex-1 ml-64 min-h-screen">
+                <header class="bg-cyber-surface/90 backdrop-blur-md border-b border-neon-purple/20 px-8 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-orbitron font-bold text-neon-purple">MEDIA GALLERY</h2>
+                            <p class="text-cyber-muted text-sm mt-1">Manage your digital portfolio</p>
+                        </div>
+                        <button class="px-4 py-2 bg-neon-purple hover:bg-neon-purple/80 text-white rounded-lg transition-colors uppercase tracking-wide text-sm">
+                            <i class="fas fa-upload mr-2"></i>
+                            Upload Media
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="p-8">
+                    <!-- Upload Area -->
+                    <!-- @FUNCTIONALITY: This upload area should handle drag-and-drop file uploads with preview -->
+                    <div class="bg-cyber-surface p-8 rounded-lg border-2 border-dashed border-neon-purple/30 mb-8 text-center hover:border-neon-purple/50 transition-colors cursor-pointer neon-border">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-neon-purple/20 rounded-full flex items-center justify-center">
+                            <i class="fas fa-cloud-upload-alt text-neon-purple text-2xl"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-cyber-text mb-2">Drop files here or click to upload</h3>
+                        <p class="text-cyber-muted text-sm">Support for images (JPG, PNG) and videos (MP4, MOV) up to 100MB</p>
+                        <input type="file" class="hidden" multiple accept="image/*,video/*" data-implementation="Handle file upload with preview generation">
+                    </div>
+                    
+                    <!-- Gallery Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- @MAP: galleryItems.map(item => ( -->
+                        <div class="bg-cyber-surface rounded-lg overflow-hidden border border-neon-purple/20 neon-border" data-mock="true">
+                            <div class="aspect-square relative group">
+                                <!-- High-fashion portrait of model in dramatic lighting -->
+                                <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400" alt="Gallery image" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 bg-neon-purple/80 text-white rounded-full hover:bg-neon-purple transition-colors">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-cyan/80 text-white rounded-full hover:bg-neon-cyan transition-colors">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-magenta/80 text-white rounded-full hover:bg-neon-magenta transition-colors">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyber-text text-sm font-medium" data-bind="item.caption">Portrait Session #3</span>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.uploadDate">2 days ago</span>
+                                </div>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-eye text-neon-cyan text-xs mr-1"></i>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.views">245 views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface rounded-lg overflow-hidden border border-neon-purple/20 neon-border" data-mock="true">
+                            <div class="aspect-square relative group">
+                                <!-- Professional model headshot with clean styling -->
+                                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400" alt="Gallery image" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 bg-neon-purple/80 text-white rounded-full hover:bg-neon-purple transition-colors">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-cyan/80 text-white rounded-full hover:bg-neon-cyan transition-colors">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-magenta/80 text-white rounded-full hover:bg-neon-magenta transition-colors">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyber-text text-sm font-medium" data-bind="item.caption">Commercial Headshots</span>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.uploadDate">5 days ago</span>
+                                </div>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-eye text-neon-cyan text-xs mr-1"></i>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.views">189 views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface rounded-lg overflow-hidden border border-neon-purple/20 neon-border relative" data-mock="true">
+                            <div class="aspect-square relative group">
+                                <!-- Fashion model in urban setting with city backdrop -->
+                                <img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400" alt="Gallery image" class="w-full h-full object-cover">
+                                <div class="absolute top-2 left-2 bg-neon-magenta/80 text-white px-2 py-1 rounded text-xs uppercase font-bold">
+                                    <i class="fas fa-play mr-1"></i>Video
+                                </div>
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 bg-neon-purple/80 text-white rounded-full hover:bg-neon-purple transition-colors">
+                                            <i class="fas fa-play"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-cyan/80 text-white rounded-full hover:bg-neon-cyan transition-colors">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-magenta/80 text-white rounded-full hover:bg-neon-magenta transition-colors">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyber-text text-sm font-medium" data-bind="item.caption">Runway Walk Demo</span>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.uploadDate">1 week ago</span>
+                                </div>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-eye text-neon-cyan text-xs mr-1"></i>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.views">376 views</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-cyber-surface rounded-lg overflow-hidden border border-neon-purple/20 neon-border" data-mock="true">
+                            <div class="aspect-square relative group">
+                                <!-- Editorial fashion portrait with strong makeup -->
+                                <img src="https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400" alt="Gallery image" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <div class="flex space-x-2">
+                                        <button class="p-2 bg-neon-purple/80 text-white rounded-full hover:bg-neon-purple transition-colors">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-cyan/80 text-white rounded-full hover:bg-neon-cyan transition-colors">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="p-2 bg-neon-magenta/80 text-white rounded-full hover:bg-neon-magenta transition-colors">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-cyber-text text-sm font-medium" data-bind="item.caption">Editorial Beauty</span>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.uploadDate">2 weeks ago</span>
+                                </div>
+                                <div class="flex items-center mt-2">
+                                    <i class="fas fa-eye text-neon-cyan text-xs mr-1"></i>
+                                    <span class="text-cyber-muted text-xs" data-bind="item.views">412 views</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- @END_COMPONENT: CreatorGallery -->
+        
+        <!-- Messages Interface -->
+        <!-- @COMPONENT: MessagesInterface -->
+        <div id="messages-view" class="hidden min-h-screen flex">
+            <aside class="fixed left-0 top-0 h-full w-64 bg-cyber-surface/95 backdrop-blur-md border-r border-neon-purple/20 z-40">
+                <!-- Reuse appropriate sidebar based on user role -->
+            </aside>
+            
+            <main class="flex-1 ml-64 min-h-screen flex">
+                <!-- Messages Sidebar -->
+                <div class="w-80 bg-cyber-surface border-r border-neon-purple/20">
+                    <div class="p-6 border-b border-neon-purple/20">
+                        <h3 class="text-lg font-orbitron font-bold text-neon-purple">Messages</h3>
+                        <div class="mt-4 relative">
+                            <input type="text" placeholder="Search conversations..." class="w-full pl-10 pr-4 py-2 bg-cyber-dark border border-neon-purple/30 rounded text-cyber-text focus:border-neon-cyan focus:outline-none transition-all duration-300">
+                            <i class="fas fa-search absolute left-3 top-3 text-cyber-muted"></i>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversation List -->
+                    <div class="overflow-y-auto h-full">
+                        <!-- @MAP: conversations.map(conversation => ( -->
+                        <div class="p-4 border-b border-neon-purple/10 hover:bg-cyber-dark/20 cursor-pointer transition-colors" data-mock="true">
+                            <div class="flex items-start space-x-3">
+                                <!-- Professional headshot of agency representative -->
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&h=50" alt="Contact avatar" class="w-10 h-10 rounded-full border border-neon-purple/30">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="text-cyber-text font-medium text-sm" data-bind="conversation.name">Studio Alpha</h4>
+                                        <span class="text-cyber-muted text-xs" data-bind="conversation.lastMessageTime">2h</span>
+                                    </div>
+                                    <p class="text-cyber-muted text-sm mt-1 truncate" data-bind="conversation.lastMessage">We'd love to discuss a potential collaboration...</p>
+                                    <div class="flex items-center justify-between mt-2">
+                                        <span class="text-neon-magenta text-xs">2 new</span>
+                                        <i class="fas fa-circle text-neon-magenta text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 border-b border-neon-purple/10 hover:bg-cyber-dark/20 cursor-pointer transition-colors bg-cyber-dark/20" data-mock="true">
+                            <div class="flex items-start space-x-3">
+                                <!-- Portrait of female agency admin -->
+                                <img src="https://pixabay.com/get/gd09f8cfcd380cb14070e1c1e35e6f66b681967d3880fb78b93c7451b7282d72ef953c6fd8b8446364359cc866437c4051dff2255d2884980e2f040af6cf062f7_1280.jpg" alt="Contact avatar" class="w-10 h-10 rounded-full border border-neon-purple/30">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="text-cyber-text font-medium text-sm" data-bind="conversation.name">Sarah Matrix</h4>
+                                        <span class="text-cyber-muted text-xs" data-bind="conversation.lastMessageTime">5m</span>
+                                    </div>
+                                    <p class="text-cyber-muted text-sm mt-1 truncate" data-bind="conversation.lastMessage">Thanks for updating your portfolio! It looks amazing.</p>
+                                    <div class="flex items-center justify-between mt-2">
+                                        <span class="text-neon-cyan text-xs">Admin</span>
+                                        <i class="fas fa-check-double text-neon-cyan text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 border-b border-neon-purple/10 hover:bg-cyber-dark/20 cursor-pointer transition-colors" data-mock="true">
+                            <div class="flex items-start space-x-3">
+                                <!-- Professional photo of creative director -->
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=50&h=50" alt="Contact avatar" class="w-10 h-10 rounded-full border border-neon-purple/30">
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <h4 class="text-cyber-text font-medium text-sm" data-bind="conversation.name">Creative Studios</h4>
+                                        <span class="text-cyber-muted text-xs" data-bind="conversation.lastMessageTime">1d</span>
+                                    </div>
+                                    <p class="text-cyber-muted text-sm mt-1 truncate" data-bind="conversation.lastMessage">The shoot is scheduled for next Thursday at 10 AM.</p>
+                                    <div class="flex items-center justify-between mt-2">
+                                        <span class="text-cyber-muted text-xs"></span>
+                                        <i class="fas fa-check text-cyber-muted text-xs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+                
+                <!-- Chat Area -->
+                <div class="flex-1 flex flex-col">
+                    <!-- Chat Header -->
+                    <div class="p-6 bg-cyber-surface border-b border-neon-purple/20">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <!-- Portrait of selected conversation contact -->
+                                <img src="https://pixabay.com/get/gc2d924c60f8bf9457211c204418ceaa2ac51dc720915b2ed2165c05b69770612e4ed8400212631a0d4a0b8050a4c84d646400cbc6e33a166addd27a7908c58ee_1280.jpg" alt="Contact avatar" class="w-12 h-12 rounded-full border border-neon-purple/30">
+                                <div>
+                                    <h3 class="font-semibold text-cyber-text" data-bind="activeConversation.name">Sarah Matrix</h3>
+                                    <p class="text-cyber-muted text-sm">NeoModel Admin • Online</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                    <i class="fas fa-phone"></i>
+                                </button>
+                                <button class="p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                    <i class="fas fa-video"></i>
+                                </button>
+                                <button class="p-2 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Messages -->
+                    <!-- @STATE: messages:array = [] -->
+                    <div class="flex-1 overflow-y-auto p-6 space-y-4">
+                        <!-- @MAP: messages.map(message => ( -->
+                        <!-- Received Message -->
+                        <div class="flex items-start space-x-3" data-mock="true">
+                            <!-- Admin avatar for received message -->
+                            <img src="https://pixabay.com/get/gca281744f23cdf812f7aef73d85a1b8d6c86272aab6f1faa2233d6f09e3fb5829b54fe500fa5f116d1b8d46cc8af766328dd22938d69bb666309eab88393ed09_1280.jpg" alt="Sender avatar" class="w-8 h-8 rounded-full border border-neon-purple/30">
+                            <div class="flex-1">
+                                <div class="bg-cyber-surface p-4 rounded-lg border border-neon-purple/20 max-w-md">
+                                    <p class="text-cyber-text" data-bind="message.content">Hi Alex! I wanted to reach out about your recent portfolio updates. The new shots look fantastic and really showcase your range. Would you be interested in discussing some upcoming projects?</p>
+                                </div>
+                                <span class="text-cyber-muted text-xs mt-1 block" data-bind="message.timestamp">Today 2:30 PM</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Sent Message -->
+                        <div class="flex items-end justify-end space-x-3" data-mock="true">
+                            <div class="text-right">
+                                <div class="bg-gradient-to-r from-neon-purple to-neon-magenta p-4 rounded-lg max-w-md">
+                                    <p class="text-white" data-bind="message.content">Thank you so much! I really appreciate the feedback. I'd definitely be interested in hearing about the projects. When would be a good time to chat?</p>
+                                </div>
+                                <span class="text-cyber-muted text-xs mt-1 block" data-bind="message.timestamp">Today 2:45 PM</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Received Message -->
+                        <div class="flex items-start space-x-3" data-mock="true">
+                            <img src="https://pixabay.com/get/g27c31b35e256297f909a06a1ef2b2bb6a96edd847ae2a0ff311b4299efbe86f68d2816b194ea5f755af9a709a03a11495c039e38eaaa61586e7067f2d7c7a324_1280.jpg" alt="Sender avatar" class="w-8 h-8 rounded-full border border-neon-purple/30">
+                            <div class="flex-1">
+                                <div class="bg-cyber-surface p-4 rounded-lg border border-neon-purple/20 max-w-md">
+                                    <p class="text-cyber-text" data-bind="message.content">Perfect! How about tomorrow at 3 PM? We can do a quick video call to go over the details. I think you'd be a great fit for our upcoming cyberpunk fashion campaign.</p>
+                                </div>
+                                <span class="text-cyber-muted text-xs mt-1 block" data-bind="message.timestamp">Today 3:00 PM</span>
+                            </div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                    
+                    <!-- Message Input -->
+                    <div class="p-6 bg-cyber-surface border-t border-neon-purple/20">
+                        <form class="flex items-end space-x-4" data-event="submit:sendMessage" data-implementation="Should send message and update conversation">
+                            <div class="flex-1">
+                                <textarea placeholder="Type your message..." class="w-full px-4 py-3 bg-cyber-dark border border-neon-purple/30 rounded-lg text-cyber-text focus:border-neon-cyan focus:outline-none resize-none transition-all duration-300" rows="1" data-bind="messageInput"></textarea>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button type="button" class="p-3 text-cyber-muted hover:text-neon-cyan transition-colors">
+                                    <i class="fas fa-paperclip"></i>
+                                </button>
+                                <button type="submit" class="px-6 py-3 bg-gradient-to-r from-neon-purple to-neon-magenta hover:from-neon-purple/80 hover:to-neon-magenta/80 text-white rounded-lg transition-all duration-300 shadow-neon-purple">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <!-- @END_COMPONENT: MessagesInterface -->
+        
+        <!-- Public About Page -->
+        <!-- @COMPONENT: AboutPage -->
+        <div id="about-view" class="hidden min-h-screen">
+            <nav class="fixed top-0 w-full bg-cyber-surface/90 backdrop-blur-md border-b border-neon-purple/20 z-50">
+                <!-- Same public navbar -->
+            </nav>
+            
+            <main class="pt-16">
+                <!-- Hero Section -->
+                <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cyber-dark via-cyber-surface/20 to-cyber-dark"></div>
+                    <div class="relative z-10 text-center max-w-4xl mx-auto px-4">
+                        <h1 class="text-4xl md:text-6xl font-orbitron font-bold mb-6 bg-gradient-to-r from-neon-purple via-neon-cyan to-neon-magenta bg-clip-text text-transparent">
+                            ABOUT NEOMODEL
+                        </h1>
+                        <p class="text-xl text-cyber-muted mb-8 max-w-3xl mx-auto leading-relaxed">
+                            We're revolutionizing the modeling industry through cutting-edge technology, connecting elite creators with forward-thinking brands in the digital age.
+                        </p>
+                    </div>
+                </section>
+                
+                <!-- Mission Section -->
+                <section class="py-20 bg-cyber-surface/50">
+                    <div class="max-w-6xl mx-auto px-4">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                            <div>
+                                <h2 class="text-3xl font-orbitron font-bold text-neon-purple mb-6">Our Mission</h2>
+                                <p class="text-cyber-muted text-lg leading-relaxed mb-6">
+                                    NeoModel bridges the gap between traditional modeling agencies and the digital future. We empower creators to showcase their talent through immersive portfolios while providing brands with innovative ways to discover and connect with the perfect talent.
+                                </p>
+                                <p class="text-cyber-muted text-lg leading-relaxed">
+                                    Our cyberpunk-inspired platform isn't just about aesthetics—it's about creating a new paradigm for creative collaboration in the digital age.
+                                </p>
+                            </div>
+                            <!-- Futuristic city skyline with neon lighting representing digital transformation -->
+                            <img src="https://pixabay.com/get/g2c547519f02824a20ae21599f4b25fdfd1f60326b41e49d09f603e35857c9c5220bf1726cef59be6b06c94dfc8b7f6e43cb8da8ee4975611551ebe6fc2b97b9f_1280.jpg" alt="Futuristic cityscape representing digital transformation" class="rounded-lg border border-neon-purple/30 shadow-neon-purple/20">
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Features Section -->
+                <section class="py-20">
+                    <div class="max-w-6xl mx-auto px-4">
+                        <h2 class="text-3xl font-orbitron font-bold text-center text-neon-purple mb-12">Platform Features</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="bg-cyber-surface p-8 rounded-lg border border-neon-purple/20 neon-border text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-neon-cyan/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-images text-neon-cyan text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-cyber-text mb-4">Digital Portfolios</h3>
+                                <p class="text-cyber-muted">Showcase your work with high-resolution galleries, video content, and interactive media that brings your creativity to life.</p>
+                            </div>
+                            
+                            <div class="bg-cyber-surface p-8 rounded-lg border border-neon-purple/20 neon-border text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-neon-purple/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-network-wired text-neon-purple text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-cyber-text mb-4">Smart Matching</h3>
+                                <p class="text-cyber-muted">Our AI-powered system connects creators with opportunities based on style, experience, and project requirements.</p>
+                            </div>
+                            
+                            <div class="bg-cyber-surface p-8 rounded-lg border border-neon-purple/20 neon-border text-center">
+                                <div class="w-16 h-16 mx-auto mb-4 bg-neon-magenta/20 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-chart-line text-neon-magenta text-2xl"></i>
+                                </div>
+                                <h3 class="text-xl font-bold text-cyber-text mb-4">Analytics Dashboard</h3>
+                                <p class="text-cyber-muted">Track your performance, monitor engagement, and gain insights to optimize your creative strategy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+        <!-- @END_COMPONENT: AboutPage -->
+    </div>
+    <!-- @END_COMPONENT: AppContainer -->
+    
+    <script>
+        // TODO: Implement business logic, API calls, and state management
+        
+        // View Management
+        (function() {
+            const views = {
+                'landing': document.getElementById('landing-view'),
+                'creator-dashboard': document.getElementById('creator-dashboard'),
+                'admin-dashboard': document.getElementById('admin-dashboard'),
+                'creator-gallery': document.getElementById('creator-gallery-view'),
+                'messages': document.getElementById('messages-view'),
+                'about': document.getElementById('about-view')
+            };
+            
+            window.showView = function(viewName) {
+                // Hide all views
+                Object.values(views).forEach(view => {
+                    if (view) view.classList.add('hidden');
+                });
+                
+                // Show requested view
+                if (views[viewName]) {
+                    views[viewName].classList.remove('hidden');
+                }
+            };
+        })();
+        
+        // Modal Management
+        (function() {
+            const loginModal = document.getElementById('login-modal');
+            const signupModal = document.getElementById('signup-modal');
+            
+            window.showLogin = function(role = '') {
+                loginModal.classList.remove('hidden');
+                loginModal.classList.add('flex');
+                // TODO: Pre-select role if provided
+            };
+            
+            window.hideLogin = function() {
+                loginModal.classList.add('hidden');
+                loginModal.classList.remove('flex');
+            };
+            
+            window.showSignup = function(role = 'creator') {
+                signupModal.classList.remove('hidden');
+                signupModal.classList.add('flex');
+                // TODO: Pre-select role
+            };
+            
+            window.hideSignup = function() {
+                signupModal.classList.add('hidden');
+                signupModal.classList.remove('flex');
+            };
+            
+            // Close modals on backdrop click
+            [loginModal, signupModal].forEach(modal => {
+                if (modal) {
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === modal) {
+                            modal.classList.add('hidden');
+                            modal.classList.remove('flex');
+                        }
+                    });
+                }
+            });
+        })();
+        
+        // Navigation & Demo Actions
+        window.logout = function() {
+            // TODO: Implement logout logic
+            showView('landing');
+        };
+        
+        window.showGalleryUpload = function() {
+            showView('creator-gallery');
+        };
+        
+        window.editProfile = function() {
+            // TODO: Navigate to profile edit view
+            console.log('Navigate to profile edit');
+        };
+        
+        window.viewMessages = function() {
+            showView('messages');
+        };
+        
+        // Demo Authentication (replace with real auth)
+        window.handleLogin = function(event) {
+            event.preventDefault();
+            // TODO: Implement real authentication
+            const role = 'creator'; // Mock role determination
+            if (role === 'admin') {
+                showView('admin-dashboard');
+            } else {
+                showView('creator-dashboard');
+            }
+            hideLogin();
+        };
+        
+        window.handleSignup = function(event) {
+            event.preventDefault();
+            // TODO: Implement real signup
+            showView('creator-dashboard');
+            hideSignup();
+        };
+        
+        // Responsive Sidebar Toggle
+        window.toggleSidebar = function() {
+            const sidebar = document.getElementById('creator-sidebar');
+            if (sidebar) {
+                sidebar.classList.toggle('sidebar-collapsed');
+            }
+        };
+        
+        // Initialize with landing view
+        showView('landing');
+        
+        // Demo navigation for development
+        if (window.location.hash) {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'creator-demo') {
+                showView('creator-dashboard');
+            } else if (hash === 'admin-demo') {
+                showView('admin-dashboard');
+            } else if (hash === 'gallery-demo') {
+                showView('creator-gallery');
+            } else if (hash === 'messages-demo') {
+                showView('messages');
+            } else if (hash === 'about') {
+                showView('about');
+            }
+        }
+    })();
+    </script>
+</body>
+</html>
