@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Cyberpunk color scheme */
+  --cyber-dark: hsl(257, 73%, 6%);
+  --cyber-surface: hsl(257, 50%, 11%);
+  --neon-purple: hsl(271, 76%, 53%);
+  --neon-cyan: hsl(178, 100%, 50%);
+  --neon-magenta: hsl(326, 100%, 58%);
+  --cyber-text: hsl(257, 33%, 92%);
+  --cyber-muted: hsl(257, 23%, 73%);
+  --glow-purple: hsla(271, 76%, 53%, 0.25);
+  
+  /* Update standard variables for cyberpunk theme */
+  --background: var(--cyber-dark);
+  --foreground: var(--cyber-text);
+  --card: var(--cyber-surface);
+  --card-foreground: var(--cyber-text);
+  --popover: var(--cyber-surface);
+  --popover-foreground: var(--cyber-text);
+  --primary: var(--neon-purple);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: var(--cyber-surface);
+  --secondary-foreground: var(--cyber-text);
+  --muted: var(--cyber-surface);
+  --muted-foreground: var(--cyber-muted);
+  --accent: var(--neon-cyan);
+  --accent-foreground: var(--cyber-dark);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --border: hsla(271, 76%, 53%, 0.3);
+  --input: var(--cyber-dark);
+  --ring: var(--neon-cyan);
+  
+  /* Typography */
+  --font-orbitron: 'Orbitron', monospace;
+  --font-inter: 'Inter', sans-serif;
+  --font-sans: var(--font-inter);
+  --font-serif: Georgia, serif;
+  --font-mono: 'Orbitron', monospace;
+  
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: var(--cyber-dark);
+  --foreground: var(--cyber-text);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: var(--cyber-dark);
+    color: var(--cyber-text);
+    font-family: var(--font-inter);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-orbitron);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+}
+
+@layer components {
+  .neon-border {
+    position: relative;
+    background: linear-gradient(145deg, hsla(271, 76%, 53%, 0.1), hsla(178, 100%, 50%, 0.05));
+    border: 1px solid hsla(271, 76%, 53%, 0.3);
+  }
+  
+  .neon-border::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--neon-purple), var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .neon-border:hover::before {
+    opacity: 0.7;
+  }
+
+  .neon-glow {
+    box-shadow: 0 0 20px var(--glow-purple);
+  }
+
+  .neon-glow-cyan {
+    box-shadow: 0 0 20px hsla(178, 100%, 50%, 0.5);
+  }
+
+  .neon-glow-magenta {
+    box-shadow: 0 0 20px hsla(326, 100%, 58%, 0.5);
+  }
+
+  .gradient-text {
+    background: linear-gradient(to right, var(--neon-purple), var(--neon-cyan), var(--neon-magenta));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cyber-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--neon-purple) var(--cyber-surface);
+  }
+
+  .cyber-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .cyber-scrollbar::-webkit-scrollbar-track {
+    background: var(--cyber-surface);
+  }
+
+  .cyber-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--neon-purple);
+    border-radius: 4px;
+  }
+
+  .cyber-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+  }
+}
+
+@layer utilities {
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 20px hsla(271, 76%, 53%, 0.5);
+    }
+    to {
+      box-shadow: 0 0 30px hsla(271, 76%, 53%, 0.8);
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
